@@ -45,10 +45,13 @@ export default class PostsList extends Component {
       <View style={styles.container}>
         <FlatList
           data = {this.state.dataSource.data.children}
-          //renderItem = {({item}) => <Text>{item.data.thumbnail}</Text>}
-          renderItem = {({item}) => <Image source={{uri: item.data.thumbnail}} style={{width: 193, height: 110}}/>}
-          //renderItem = {({item}) => this.renderItem(item.data.thumbnail)}
-
+          renderItem = {
+            ({item}) => 
+              <View>
+                <Text>{item.data.title}</Text>
+                <Image source={{uri: item.data.thumbnail}} style={{width: 193, height: 110}}/>
+              </View>
+          }
           keyExtractor = {(item, index) => index}
         />
       </View>
