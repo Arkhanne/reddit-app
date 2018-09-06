@@ -48,8 +48,18 @@ export default class PostsList extends Component {
           renderItem = {
             ({item}) => 
               <View>
-                <Text>{item.data.title}</Text>
+                <Text>TITLE: {item.data.title}</Text>
                 <Image source={{uri: item.data.thumbnail}} style={{width: 193, height: 110}}/>
+                <Text>AUTHOR: {item.data.author}</Text>
+                <Text>SCORE: {item.data.score}</Text>
+                <Text>COMMENTS: {item.data.num_comments}</Text>
+
+                <View
+                  style={{
+                    borderBottomColor: 'black',
+                    borderBottomWidth: 1,
+                  }}
+                />
               </View>
           }
           keyExtractor = {(item, index) => index}
@@ -57,8 +67,4 @@ export default class PostsList extends Component {
       </View>
     );
   }
-
-  // renderItem(data) {
-  //   return <Image source={{uri: data}} style={{width: 193, height: 110}}/>;
-  // }
 }
