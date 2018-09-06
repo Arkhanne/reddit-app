@@ -1,49 +1,61 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
-  }
-}
+import React, { Component } from 'react';
+import { ActivityIndicator, Text, Image, View, StyleSheet, FlatList  } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+      flex:1,
+      alignItems: 'center',
+      alignContent:'center',
+      flexDirection: 'row',
+      flexWrap:'wrap',
+      justifyContent:'center',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+})
+
+export default class PostsList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      dataSource: [],
+    }
+  }
+
+  componentDidMount() {
+    return fetch('https://api.reddit.com/r/pics/new.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({ dataSource: responseJson, isLoading: false });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator/>
+        </View>
+      );
+    }
+    
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data = {this.state.dataSource.data.children}
+          //renderItem = {({item}) => <Text>{item.data.thumbnail}</Text>}
+          renderItem = {({item}) => <Image source={{uri: item.data.thumbnail}} style={{width: 193, height: 110}}/>}
+          //renderItem = {({item}) => this.renderItem(item.data.thumbnail)}
+
+          keyExtractor = {(item, index) => index}
+        />
+      </View>
+    );
+  }
+
+  // renderItem(data) {
+  //   return <Image source={{uri: data}} style={{width: 193, height: 110}}/>;
+  // }
+}
