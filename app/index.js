@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import PostsList from './PostsList';
+import PostsList from './components/PostsList/PostsList';
 
 export default class App extends Component {
   render () {

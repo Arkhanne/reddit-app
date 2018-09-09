@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, StyleSheet, FlatList } from 'react-native';
+import { ActivityIndicator, View, FlatList } from 'react-native';
 
-import Post from './Post';
-import fetchData from './fetchData';
+import styles from './styles';
+import Post from '../Post/Post';
+import fetchData from '../FetchData/fetchData';
 
-const styles = StyleSheet.create({
-  container: {
-      flex:1,
-      alignItems: 'center',
-      alignContent:'center',
-      flexDirection: 'row',
-      flexWrap:'wrap',
-      justifyContent:'center',
-  },
-})
-
-export default class PostsList extends Component {
+class PostsList extends Component {
   state = {
     isLoading: true,
     dataSource: [],
@@ -68,3 +58,5 @@ export default class PostsList extends Component {
     );
   }
 }
+
+export default PostsList;

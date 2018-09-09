@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Image, View } from 'react-native';
 
-export default class Post extends Component {
+class Post extends Component {
   // handleClick = () => {
   //   this.props.onClick(
   //     this.props.post
@@ -29,3 +29,5 @@ export default class Post extends Component {
     )
   }
 }
+
+export default Post;
