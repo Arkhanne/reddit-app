@@ -1,71 +1,11 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Text, Image, View, StyleSheet, FlatList } from 'react-native';
 
-import { Post } from './post';
-import { fetchData } from './fetchData';
+import PostsList from './PostsList';
 
-const styles = StyleSheet.create({
-  container: {
-      flex:1,
-      alignItems: 'center',
-      alignContent:'center',
-      flexDirection: 'row',
-      flexWrap:'wrap',
-      justifyContent:'center',
-  },
-})
-
-// Sacar a un fichero
-export default class PostsList extends Component {
-  state = {
-    isLoading: true,
-    dataSource: [],
-  }
-
-  async componentDidMount() {
-    const responseJson = await fetchData('https://api.reddit.com/r/pics/new.json');
-
-    this.setState({
-      dataSource: responseJson, 
-      isLoading: false
-    });
-  }
-
-  handleClick = (art) => {
-    this.setState({selected: art.id})
-  }
-
-  render() {
-    const {isLoading, dataSource} = this.state;
-
-    if (isLoading) {
-      return (
-        <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator/>
-        </View>
-      );
-    }
-    
+export default class App extends Component {
+  render () {
     return (
-      <View style={styles.container}>
-        <FlatList
-          data = {dataSource.data.children}
-          renderItem = {
-            ({item}) => 
-              /* <Post 
-                key=''
-                onClick = {this.handleClick}
-                selected = {this.selected === post.id}
-                post={post}
-              /> */
-              
-              <Post
-                item = {item}
-              />
-          }
-          keyExtractor = {(item, index) => index}
-        />
-      </View>
-    );
+      <PostsList></PostsList>
+    )
   }
 }
