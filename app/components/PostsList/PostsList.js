@@ -3,8 +3,8 @@ import { ActivityIndicator, View, FlatList } from 'react-native';
 
 import styles from './styles';
 import settings from '../../config/settings'
-import Post from '../Post/Post';
-import fetchData from '../FetchData/fetchData';
+import Post from '../Post';
+import fetchData from '../../lib/fetchData';
 
 class PostsList extends Component {
   state = {
