@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Button, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 import PostsList from './components/PostsList/PostsList';
@@ -9,6 +9,10 @@ class HomeScreen extends React.Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <PostsList></PostsList>
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
       </View>
     );
   }
@@ -32,7 +36,7 @@ const RootStack = createStackNavigator(
   {
     initialRouteName: 'Home',
   }
-);
+)
 
 export default class App extends Component {
   render () {
