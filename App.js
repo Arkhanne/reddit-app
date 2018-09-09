@@ -12,28 +12,40 @@ const styles = StyleSheet.create({
   },
 })
 
+// Sacar a un fichero y hacer import
+async function fetchData() {
+  const result = await fetch('https://api.reddit.com/r/pics/new.json');
+  const response = await result.json();
+  return response;
+}
+
+// Sacar a un fichero
 export default class PostsList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      dataSource: [],
-    }
+  // constructor(props) {
+  //   super(props);
+  state = {
+    isLoading: true,
+    dataSource: [],
+  }
+  // }
+
+  async componentDidMount() {
+    const responseJson = await fetchData();
+
+    this.setState({
+      dataSource: responseJson, 
+      isLoading: false
+    });
   }
 
-  componentDidMount() {
-    return fetch('https://api.reddit.com/r/pics/new.json')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({ dataSource: responseJson, isLoading: false });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  handleClick = (art) => {
+    this.setState({selected: art.id})
   }
 
   render() {
-    if (this.state.isLoading) {
+    const {isLoading, dataSource} = this.state;
+
+    if (isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
           <ActivityIndicator/>
@@ -41,12 +53,37 @@ export default class PostsList extends Component {
       );
     }
     
+// Componentizar el artículo para que pueda tener un handleClick
+// class Art extends Component {
+//   handleClick = () => {
+//     this.props.onClick(
+//       this.props.art
+//     )
+//   }
+
+//   render() {
+//     const {art} = this.props;
+//     return (...)
+//   }
+// }
+
+
+
+
+
+
     return (
       <View style={styles.container}>
         <FlatList
-          data = {this.state.dataSource.data.children}
+          data = {dataSource.data.children}
           renderItem = {
             ({item}) => 
+              /* <Art 
+                key=''
+                onClick = {this.handleClick}
+                selected = {this.selected === art.id}
+                art={art}
+              /> */
               <View>
                 <Text>TITLE: {item.data.title}</Text>
                 <Image source={{uri: item.data.thumbnail}} style={{width: 193, height: 110}}/>
