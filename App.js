@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Text, Image, View, StyleSheet, FlatList } from 'react-native';
 
 import { Post } from './post';
+import { fetchData } from './fetchData';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,13 +15,6 @@ const styles = StyleSheet.create({
   },
 })
 
-// Sacar a un fichero y hacer import
-async function fetchData() {
-  const result = await fetch('https://api.reddit.com/r/pics/new.json');
-  const response = await result.json();
-  return response;
-}
-
 // Sacar a un fichero
 export default class PostsList extends Component {
   state = {
@@ -29,7 +23,7 @@ export default class PostsList extends Component {
   }
 
   async componentDidMount() {
-    const responseJson = await fetchData();
+    const responseJson = await fetchData('https://api.reddit.com/r/pics/new.json');
 
     this.setState({
       dataSource: responseJson, 
