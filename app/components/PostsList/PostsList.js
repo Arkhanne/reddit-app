@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, View, FlatList } from 'react-native';
 
 import styles from './styles';
+import settings from '../../config/settings'
 import Post from '../Post/Post';
 import fetchData from '../FetchData/fetchData';
 
@@ -12,7 +13,7 @@ class PostsList extends Component {
   }
 
   async componentDidMount() {
-    const responseJson = await fetchData('https://api.reddit.com/r/pics/new.json');
+    const responseJson = await fetchData(settings.DATA_URL);
 
     this.setState({
       dataSource: responseJson, 
