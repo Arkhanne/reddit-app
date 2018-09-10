@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, FlatList } from 'react-native';
+import { ActivityIndicator, View, FlatList, RefreshControl } from 'react-native';
 
 import styles from './styles';
 import settings from '../../config/settings'
@@ -8,33 +8,57 @@ import fetchData from '../../lib/fetchData';
 
 class PostsList extends Component {
   state = {
-    isLoading: true,
+    loading: true,
     dataSource: [],
+    refreshing: false,
   }
 
   async componentDidMount() {
+    this.getData();
+  }
+
+  componentDidUpdate() {
+    return !this.state.refreshing;
+  }
+
+  async getData() {
     const responseJson = await fetchData(settings.DATA_URL);
 
     this.setState({
-      dataSource: responseJson, 
-      isLoading: false
+        dataSource: responseJson, 
+        loading: false,
+        refreshing: false,
+      });
+  }
+
+  _onRefresh = () => {
+    this.setState({
+      refreshing: true,
     });
+    
+    this.getData();
   }
 
   render() {
-    const {isLoading, dataSource} = this.state;
+    const {loading, dataSource, refreshing} = this.state;
 
-    if (isLoading) {
+    if (loading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
           <ActivityIndicator/>
         </View>
       );
     }
-    
+
     return (
       <View style={styles.container}>
         <FlatList
+          refreshControl = {
+            <RefreshControl
+              refreshing = {refreshing}
+              onRefresh = {this._onRefresh}
+            />
+          }
           data = {dataSource.data.children}
           renderItem = {
             ({item}) => 
