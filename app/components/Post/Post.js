@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Text, Image, View, Button, Linking } from 'react-native';
 
+import settings from '../../config/settings'
+
 class Post extends Component {
   render() {
     const {item} = this.props;
-    const url = 'https://reddit.com' + item.data.permalink;
+    const url = settings.BASE_URL + item.data.permalink;
 
     return (
       <View>
