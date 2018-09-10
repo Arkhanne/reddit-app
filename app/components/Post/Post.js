@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import { Text, Image, View } from 'react-native';
+import { Text, Image, View, Button, Linking } from 'react-native';
 
 class Post extends Component {
-  // handleClick = () => {
-  //   this.props.onClick(
-  //     this.props.post
-  //   )
-  // }
-
   render() {
     const {item} = this.props;
+    const url = 'https://reddit.com' + item.data.permalink;
 
     return (
       <View>
@@ -18,6 +13,11 @@ class Post extends Component {
         <Text>AUTHOR: {item.data.author}</Text>
         <Text>SCORE: {item.data.score}</Text>
         <Text>COMMENTS: {item.data.num_comments}</Text>
+        
+        <Button
+          title="Go to Details"
+          onPress={() => Linking.openURL(url)}
+        />
 
         <View
           style={{

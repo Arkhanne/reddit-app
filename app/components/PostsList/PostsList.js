@@ -21,10 +21,6 @@ class PostsList extends Component {
     });
   }
 
-  handleClick = (art) => {
-    this.setState({selected: art.id})
-  }
-
   render() {
     const {isLoading, dataSource} = this.state;
 
@@ -42,18 +38,11 @@ class PostsList extends Component {
           data = {dataSource.data.children}
           renderItem = {
             ({item}) => 
-              /* <Post 
-                key=''
-                onClick = {this.handleClick}
-                selected = {this.selected === post.id}
-                post={post}
-              /> */
-              
               <Post
                 item = {item}
               />
           }
-          keyExtractor = {(item, index) => index}
+          keyExtractor = {(item, index) => item.data.id}
         />
       </View>
     );
