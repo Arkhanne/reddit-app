@@ -44,7 +44,7 @@ class PostsList extends Component {
 
     if (loading) {
       return (
-        <View style={{flex: 1, paddingTop: 20}}>
+        <View style={styles.activityContainer}>
           <ActivityIndicator/>
         </View>
       );
