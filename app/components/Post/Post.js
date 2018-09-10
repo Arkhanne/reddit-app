@@ -11,7 +11,7 @@ class Post extends Component {
     return (
       <View>
         <Text>TITLE: {item.data.title}</Text>
-        <Image source={{uri: item.data.thumbnail}} style={{width: 193, height: 110}}/>
+        <Image source = {{uri: item.data.thumbnail}} style={{width: 193, height: 110}}/>
         <Text>AUTHOR: {item.data.author}</Text>
         <Text>SCORE: {item.data.score}</Text>
         <Text>COMMENTS: {item.data.num_comments}</Text>

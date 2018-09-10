@@ -21,16 +21,6 @@ class PostsList extends Component {
     return !this.state.refreshing;
   }
 
-  async getData() {
-    const responseJson = await fetchData(settings.DATA_URL);
-
-    this.setState({
-        dataSource: responseJson, 
-        loading: false,
-        refreshing: false,
-      });
-  }
-
   _onRefresh = () => {
     this.setState({
       refreshing: true,
@@ -39,6 +29,16 @@ class PostsList extends Component {
     this.getData();
   }
 
+  async getData() {
+    const responseJson = await fetchData(settings.DATA_URL);
+
+    this.setState({
+      dataSource: responseJson, 
+      loading: false,
+      refreshing: false,
+    });
+  }
+  
   render() {
     const {loading, dataSource, refreshing} = this.state;
 
