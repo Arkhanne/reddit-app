@@ -18,7 +18,6 @@ export default StyleSheet.create({
     height: 80,
   },
   title: {
-    fontWeight: 'bold',
     color: 'blue',
   },
   ratings: {
@@ -27,7 +26,10 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
     paddingTop: 2,
   },
-  textLink: {
-    color: 'blue',
+  ratingText: {
+    fontSize: 12,
   },
+  authorText: {
+    fontSize: 10,
+  }
 });

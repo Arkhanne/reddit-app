@@ -44,14 +44,14 @@ class PostsList extends Component {
 
     if (loading) {
       return (
-        <View style={styles.activityContainer}>
+        <View>
           <ActivityIndicator/>
         </View>
       );
     }
 
     return (
-      <View style={styles.container}>
+      <View>
         <FlatList
           refreshControl = {
             <RefreshControl

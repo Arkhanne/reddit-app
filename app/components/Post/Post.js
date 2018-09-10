@@ -23,9 +23,13 @@ class Post extends Component {
               onPress = {() => Linking.openURL(url)}>
               {item.data.title}
             </Text>
-            <Text>submitted {timeago().format(date)} by {item.data.author}</Text>
+            <Text style = {styles.authorText}>
+              submitted {timeago().format(date)} by {item.data.author}
+            </Text>
             <View style = {styles.ratings}>
-              <Text>{item.data.score} {votesStr}   {item.data.num_comments} {commentStr}</Text>
+              <Text style = {styles.ratingText}>
+                {item.data.score} {votesStr}   {item.data.num_comments} {commentStr}
+              </Text>
             </View>
           </View>
         </View>
