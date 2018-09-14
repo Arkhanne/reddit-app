@@ -6,6 +6,10 @@ import settings from '../../config/settings';
 import styles from './styles';
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const {item} = this.props;
     const url = settings.BASE_URL + item.data.permalink;
@@ -20,7 +24,7 @@ class Post extends Component {
           <View style = {styles.postData}>
             <Text 
               style = {styles.title}
-              onPress = {() => Linking.openURL(url)}>
+              onPress = {() => this.props.navigation.navigate('Detail', {url})}>
               {item.data.title}
             </Text>
             <Text style = {styles.authorText}>

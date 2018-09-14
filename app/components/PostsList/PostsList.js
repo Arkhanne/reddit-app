@@ -63,7 +63,8 @@ class PostsList extends Component {
           renderItem = {
             ({item}) => 
               <Post
-                item = {item}
+                navigation = {this.props.navigation}
+                item = {item}   
               />
           }
           keyExtractor = {(item, index) => item.data.id}

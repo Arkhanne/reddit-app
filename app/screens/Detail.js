@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import { WebView } from 'react-native';
 
 export default class Detail extends Component {
+  url = '';
+
+  constructor(props) {
+    super(props);
+
+    const { navigation } = props;
+    url = navigation.getParam('url', '');
+  }
+  
   render() {
     return (
       <WebView
-        source={{uri: 'https://github.com/facebook/react-native'}}
-        style={{marginTop: 20}}
+        source = { {uri: url} }
+        style = { {marginTop: 20} }
       />
     );
   }
