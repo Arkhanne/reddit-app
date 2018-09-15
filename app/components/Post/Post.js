@@ -1,13 +1,44 @@
 import React, { Component } from 'react';
-import { Text, Image, View, Button, Linking } from 'react-native';
+import { Text, Image, View } from 'react-native';
 import timeago from 'timeago.js';
 
 import settings from '../../config/settings';
 import styles from './styles';
+import validURL from '../../lib/validURL'
 
 class Post extends Component {
-  constructor(props) {
-    super(props);
+  setImage(str) {
+    let thumbnail = '';
+
+    if (validURL(str)) {
+      thumbnail = {uri: str}
+    } else {
+      switch (str) {
+        case 'default':
+          thumbnail = require('./images/Greylink.png');
+          break;
+
+        case 'self':
+          thumbnail = require('./images/bubble.png');
+          break;
+
+        case 'image':
+          thumbnail = require('./images/no-picture.png');
+          break;
+
+        case 'spoiler':
+          thumbnail = require('./images/spoiler.png');
+          break;
+
+        default:
+          thumbnail = require('./images/Greylink.png');
+          break;
+      }
+    }
+    
+    image = <Image source = {thumbnail} style = {styles.image}/>
+    
+    return image;
   }
 
   render() {
@@ -15,12 +46,13 @@ class Post extends Component {
     const url = settings.BASE_URL + item.data.permalink;
     const date = new Date(item.data.created_utc * 1000);
     const votesStr = item.data.score == 1 ? 'vote' : 'votes';
-    const commentStr = item.data.num_comments == 1 ? 'comment' : 'comments'
+    const commentStr = item.data.num_comments == 1 ? 'comment' : 'comments';
+    const image = this.setImage(item.data.thumbnail);
 
     return (
       <View>
         <View style = {styles.container}>
-          <Image source = {{uri: item.data.thumbnail}} style = {styles.image}/>
+          {image}
           <View style = {styles.postData}>
             <Text 
               style = {styles.title}
