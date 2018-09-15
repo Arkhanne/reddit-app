@@ -14,6 +14,7 @@ export default class Detail extends Component {
   render() {
     return (
       <WebView
+        originWhitelist={['*']}
         source = { {uri: url} }
         style = { {marginTop: 20} }
       />
