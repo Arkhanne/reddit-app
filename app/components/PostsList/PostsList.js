@@ -16,18 +16,6 @@ class PostsList extends Component {
     this.getData();
   }
 
-  componentDidUpdate() {
-    return !this.state.refreshing;
-  }
-
-  _onRefresh = () => {
-    this.setState({
-      refreshing: true,
-    });
-    
-    this.getData();
-  }
-
   async getData() {
     const responseJson = await fetchData(settings.DATA_URL);
 
@@ -37,7 +25,11 @@ class PostsList extends Component {
       refreshing: false,
     });
   }
-  
+
+  componentDidUpdate() {
+    return !this.state.refreshing;
+  }
+
   render() {
     const {loading, dataSource, refreshing} = this.state;
 
@@ -66,10 +58,18 @@ class PostsList extends Component {
                 item = {item}   
               />
           }
-          keyExtractor = {(item, index) => item.data.id}
+          keyExtractor = {(item) => item.data.id}
         />
       </View>
     );
+  }
+
+  _onRefresh = () => {
+    this.setState({
+      refreshing: true,
+    });
+    
+    this.getData();
   }
 }
 
