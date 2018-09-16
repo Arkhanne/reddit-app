@@ -8,6 +8,12 @@ import validURL from '../../lib/validURL'
 
 class Post extends Component {
   setImage(str) {
+    image = <Image source = {this.setThumbnail(str)} style = {styles.image}/>
+    
+    return image;
+  }
+
+  setThumbnail(str) {
     let thumbnail = '';
 
     if (validURL(str)) {
@@ -35,10 +41,8 @@ class Post extends Component {
           break;
       }
     }
-    
-    image = <Image source = {thumbnail} style = {styles.image}/>
-    
-    return image;
+
+    return thumbnail;
   }
 
   render() {
