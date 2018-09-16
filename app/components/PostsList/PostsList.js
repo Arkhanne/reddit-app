@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, View, FlatList, RefreshControl } from 'react-native';
 
-import styles from './styles';
 import settings from '../../config/settings'
 import Post from '../Post';
 import fetchData from '../../lib/fetchData';
