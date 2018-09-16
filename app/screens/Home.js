@@ -2,10 +2,11 @@ import React  from 'react';
 import { View } from 'react-native';
 
 import PostsList from '../components/PostsList/PostsList';
+import styles from '../config/styles'
 
 const Home = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style = {styles.container}>
       <PostsList 
         navigation = {navigation}>
       </PostsList>
